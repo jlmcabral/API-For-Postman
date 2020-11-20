@@ -7,6 +7,8 @@ const cors = require("cors");
 
 // List all routers
 const CompanyRouter = require("./routes/companyRoutes");
+const StateRouter = require("./routes/stateRoutes");
+const ConstructionRouter = require("./routes/constructionRoutes");
 
 const app = express();
 
@@ -19,6 +21,8 @@ app.use(express.static(path.join(__dirname, "public")));
 // List all endpoints to routers
 app.use(cors());
 app.use("/api/company", CompanyRouter);
+app.use("/api/state", StateRouter);
+app.use("/api/construction", ConstructionRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
