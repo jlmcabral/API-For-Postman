@@ -6,6 +6,7 @@
     "start": "node ./bin/www",
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
+    "reset": "knex migrate:rollback && knex migrate:latest && knex seed:run",
     "seed": "knex seed:run",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

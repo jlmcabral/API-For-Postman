@@ -4,25 +4,6 @@ const knex = require("../config");
 const tableNames = require("../src/constants/tableNames");
 const query = require("../src/lib/queryHelpers");
 
-/**
- * Promise.allSettled polyfill
- * @param {Promise} promises
- */
-Promise.allSettled = (promises) =>
-  Promise.all(
-    promises.map((promise) =>
-      promise
-        .then((value) => ({
-          status: "fulfilled",
-          value,
-        }))
-        .catch((reason) => ({
-          status: "rejected",
-          reason,
-        }))
-    )
-  );
-
 exports.getAll = () =>
   new Promise((fulfill, reject) => {
     knex(tableNames.company)
