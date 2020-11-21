@@ -7,7 +7,7 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "reset": "knex migrate:rollback && knex migrate:latest && knex seed:run",
-    "seed": "knex seed:run",
+    "seed": "knex seed:run"
   },
   "repository": {
     "type": "git",
