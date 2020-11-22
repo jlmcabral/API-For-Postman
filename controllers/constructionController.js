@@ -15,8 +15,8 @@ exports.getAll = (req, res) => {
     });
 };
 
-exports.getById = (req, res) => {
-  ConstructionService.getById(req.params.id)
+exports.getByRef = (req, res) => {
+  ConstructionService.getByRef(req.params.ref)
     .then((values) => {
       res.status(200).send(values);
     })

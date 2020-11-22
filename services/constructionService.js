@@ -18,15 +18,15 @@ exports.getAll = () =>
       });
   });
 
-exports.getById = (id) =>
+exports.getByRef = (ref) =>
   new Promise((fulfill, reject) => {
-    if (!id) reject(new Error("É necessário fornecer um id de uma obra"));
+    if (!ref) reject(new Error("É necessário fornecer uma ref de uma obra"));
     knex(tableNames.construction)
       .select()
-      .where("id", id)
+      .where("ref", ref)
       .first() // Get only 1 row instead of an array
       .then((results) => {
-        if (!results) reject(new Error(`Não existem obras com o id ${id}`));
+        if (!results) reject(new Error(`Não existem obras com a ref ${ref}`));
 
         fulfill(results);
       })
@@ -56,10 +56,10 @@ exports.update = (req) =>
   new Promise((fulfill, reject) => {
     let construction = {
       ...req.body,
-      id: req.params.id,
+      ref: req.params.ref,
     };
 
-    this.getById(construction.id)
+    this.getByRef(construction.ref)
       .then((queriedconstruction) => {
         construction = {
           ...queriedconstruction,
@@ -67,12 +67,16 @@ exports.update = (req) =>
         };
 
         return knex(tableNames.construction)
-          .where("id", construction.id)
+          .where("ref", construction.ref)
           .update(construction);
       })
       .then((results) => {
         if (!results)
-          reject(new Error(`Obra com o id ${construction.id} não atualizada`));
+          reject(
+
+            new Error(`Obra com a ref ${construction.ref} não atualizada`)
+
+          );
 
         fulfill(construction);
       })
@@ -84,13 +88,13 @@ exports.update = (req) =>
 exports.delete = (req) =>
   new Promise((fulfill, reject) => {
     knex(tableNames.construction)
-      .where("id", req.params.id)
+      .where("ref", req.params.ref)
       .del()
       .then((results) => {
         if (!results)
-          reject(new Error(`Não existem obras com o id ${req.params.id}`));
+          reject(new Error(`Não existem obras com a ref ${req.params.ref}`));
 
-        fulfill(`Obra com o id ${req.params.id} apagado com sucesso`);
+        fulfill(`Obra com a ref ${req.params.ref} apagado com sucesso`);
       })
       .catch((err) => {
         reject(err);
